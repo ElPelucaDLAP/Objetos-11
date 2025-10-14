@@ -1,10 +1,24 @@
 public class Procesos {
     String nombre;
     double cantidadDeRam;
-    double hzNecesarios;
-    public Procesos (String nombre, double cantidadDeRam,double hzNecesarios){
+    public Procesos (String nombre, double cantidadDeRam){
         this.nombre=nombre;
         this.cantidadDeRam=cantidadDeRam;
-        this.hzNecesarios=hzNecesarios;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getCantidadDeRam() {
+        return cantidadDeRam;
+    }
+
+    public void setCantidadDeRam(double cantidadDeRam) {
+        this.cantidadDeRam = cantidadDeRam;
     }
 }

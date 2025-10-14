@@ -3,15 +3,20 @@ import java.util.ArrayList;
 public abstract class Computadoras {
     String nombreEquipo;
     double memoriaRam;
-    double hzProcesador;
     ArrayList<Procesos> procesosEnCola;
-    public Computadoras (String nombreEquipo,double memoriaRam,double hzProcesador){
+    public Computadoras (String nombreEquipo,double memoriaRam){
         this.nombreEquipo=nombreEquipo;
         this.memoriaRam=memoriaRam;
-        this.hzProcesador=hzProcesador;
         this.procesosEnCola=new ArrayList<>();
     }
-    public abstract void aptoParaComputadora ();
+    public abstract boolean aptoParaComputadora (Procesos proceso);
+    public void resolverTarea () {
+        for (int i = 0; i<procesosEnCola.size(); i++){
+            System.out.println("Tarea hecha: "+procesosEnCola.get(i).getNombre());
+            this.memoriaRam=(memoriaRam+procesosEnCola.get(i).getCantidadDeRam());
+        }
+        procesosEnCola.clear();
+    }
     public void anadirAlaCola (Procesos proceso){
         procesosEnCola.add(proceso);
     }
@@ -29,14 +34,6 @@ public abstract class Computadoras {
 
     public void setMemoriaRam(double memoriaRam) {
         this.memoriaRam = memoriaRam;
-    }
-
-    public double getHzProcesador() {
-        return hzProcesador;
-    }
-
-    public void setHzProcesador(double hzProcesador) {
-        this.hzProcesador = hzProcesador;
     }
 
     public ArrayList<Procesos> getProcesosEnCola() {
