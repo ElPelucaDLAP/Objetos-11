@@ -12,7 +12,6 @@ public class ComputadoraRam extends Computadoras{
     @Override
     public boolean aptoParaComputadora(Procesos proceso) {
         if (proceso.getCantidadDeRam()<=memoriaRam){
-            anadirAlaCola(proceso);
             setMemoriaRam(memoriaRam-proceso.getCantidadDeRam());
             System.out.println("Tarea aceptada");
             return true;

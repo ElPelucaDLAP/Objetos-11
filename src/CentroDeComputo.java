@@ -13,47 +13,51 @@ public void resolverTareas (){
   for (int i = 0; i<computadorasOcupadas.size(); i++){
       computadorasOcupadas.get(i).resolverTarea();
   }
+    computadorasDisponibles.addAll(computadorasOcupadas);
+    computadorasOcupadas.clear();
 }
+
+
 public void asignarTareas (){
     int j = 0;
     while (j<procesosEnEspera.size()){
-        for (int i = 0; i<computadorasDisponibles.size(); i++){
+        boolean asignado = false;
+        int i = 0;
+        while (i<computadorasDisponibles.size() && !asignado){
             if (computadorasDisponibles.get(i).aptoParaComputadora(procesosEnEspera.get(j))){
-              computadorasOcupadas.add(computadorasDisponibles.get(i));
-              computadorasDisponibles.get(i).anadirAlaCola(procesosEnEspera.get(j));
-              computadorasDisponibles.remove(i);
-              i--;
-            }
+                computadorasDisponibles.get(i).anadirAlaCola(procesosEnEspera.get(j));
+                computadorasOcupadas.add(computadorasDisponibles.get(i));
+                computadorasDisponibles.remove(i);
+                asignado=true;
+            }else i++;
         }
         j++;
     }
 }
-public void ordenarProcesos (){
-    ArrayList<Procesos> copiaArray = new ArrayList<>(procesosEnEspera);
-    double mayorMemoriaRam = 0;
-    int posicionDelMayor = 0;
-    int j=0;
-    while (j<procesosEnEspera.size()){
-        for (int i = 0; i<copiaArray.size();i++){{
-            if (copiaArray.get(i).getCantidadDeRam()>mayorMemoriaRam){
-                mayorMemoriaRam=copiaArray.get(i).getCantidadDeRam();
-                posicionDelMayor=i;
+    public void ordenarProcesos() {
+        ArrayList<Procesos> copiaArray = new ArrayList<>(procesosEnEspera);
+        procesosEnEspera.clear();
 
+        while (!copiaArray.isEmpty()) {
+            double mayorMemoriaRam = 0;
+            int posicionDelMayor = 0;
+
+            for (int i = 0; i < copiaArray.size(); i++) {
+                if (copiaArray.get(i).getCantidadDeRam() >= mayorMemoriaRam) {
+                    mayorMemoriaRam = copiaArray.get(i).getCantidadDeRam();
+                    posicionDelMayor = i;
+                }
             }
+
+            procesosEnEspera.add(copiaArray.remove(posicionDelMayor));
         }
-            procesosEnEspera.set(j,copiaArray.get(posicionDelMayor));
-            copiaArray.remove(posicionDelMayor);
-            i++;
-        }
-        j++;
     }
-}
 public  void ordenarComputadoras (){
     ArrayList<Computadoras>copiaArray = new ArrayList<>(computadorasDisponibles);
-    double mayorMemoriaRam = 0;
-    int posicionDelMayor = 0;
     int j=0;
     while (j<computadorasDisponibles.size()){
+        double mayorMemoriaRam = 0;
+        int posicionDelMayor = 0;
         for (int i = 0; i<copiaArray.size();i++){{
             if (copiaArray.get(i).getMemoriaRam()>mayorMemoriaRam){
                 mayorMemoriaRam=copiaArray.get(i).memoriaRam;
@@ -63,7 +67,6 @@ public  void ordenarComputadoras (){
         }
         computadorasDisponibles.set(j,copiaArray.get(posicionDelMayor));
         copiaArray.remove(posicionDelMayor);
-        i++;
     }
         j++;
     }

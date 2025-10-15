@@ -12,7 +12,7 @@ public abstract class Computadoras {
     public abstract boolean aptoParaComputadora (Procesos proceso);
     public void resolverTarea () {
         for (int i = 0; i<procesosEnCola.size(); i++){
-            System.out.println("Tarea hecha: "+procesosEnCola.get(i).getNombre());
+            System.out.println("Tarea hecha: "+(procesosEnCola.get(i).getNombre()));
             this.memoriaRam=(memoriaRam+procesosEnCola.get(i).getCantidadDeRam());
         }
         procesosEnCola.clear();
